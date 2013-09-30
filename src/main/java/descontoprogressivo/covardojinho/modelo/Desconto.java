@@ -22,7 +22,6 @@ public class Desconto {
 	}
 
 	public Desconto(Double total, List<Livro> descontos) {
-		super();
 		this.total = total;
 		this.descontos = descontos;
 	}

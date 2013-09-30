@@ -18,6 +18,7 @@ public class Carrinho {
 	}
 
 	public Double getTotal() {
+		calculaTotal();
 		return total;
 	}
 
@@ -56,7 +57,7 @@ public class Carrinho {
 		while (existirLivros(comprasAux)) {
 			List<Livro> livros = new ArrayList<Livro>();
 			for (Compra compra : comprasAux) {
-				if (compra.getQuantidade() > 0) {
+				if ((compra.getQuantidade() > 0) && !existeMelhorCombinacao(comprasAux, livros)) {
 					livros.add(compra.getLivro());
 					compra.setQuantidade(compra.getQuantidade() - 1);
 				}
@@ -65,6 +66,18 @@ public class Carrinho {
 			descontos.add(desconto);	
 		}		
 		return descontos;
+	}
+
+	public boolean existeMelhorCombinacao(List<Compra> comprasAux, List<Livro> livros) {
+		return (livros.size() == 4 && quantidadeRestante(comprasAux) >= 3);
+	}
+
+	private int quantidadeRestante(List<Compra> comprasAux) {
+		Integer total = 0;
+		for (Compra compra : comprasAux) {
+			total += compra.getQuantidade();		
+		}
+		return total;
 	}
 
 	private boolean existirLivros(List<Compra> comprasAux) {

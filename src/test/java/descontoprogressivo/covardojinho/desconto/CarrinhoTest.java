@@ -16,57 +16,67 @@ public class CarrinhoTest {
 	@Test public void
 	quandoHouverUmLivro_entao_naoTemDesconto() {
 		Carrinho carrinho = carrinhoComApenasUmLivro();
-		carrinho.calculaTotal();
 		assertEquals(Double.valueOf(8.0), carrinho.getTotal());
 	}
 	
 	@Test public void
 	quandoHouverDoisLivrosDiferentes_entao_aplicarDescontoDeCincoPorCento() {
 		Carrinho carrinho = carrinhoComDoisLivros();
-		carrinho.calculaTotal();
 		assertEquals(Double.valueOf(15.20), carrinho.getTotal());
 	}
 	
 	@Test public void
 	quandoHouverDoisLivrosDiferentes_e_umIgual_entao_aplicarDescontoDeCincoPorCentoNosDois() {
 		Carrinho carrinho = carrinhoComTresLivros();
-		carrinho.calculaTotal();
 		assertEquals(Double.valueOf(23.20), carrinho.getTotal());
 	}
 	
 	@Test public void
 	quandoHouverTresLivrosDiferentes_entao_aplicarDescontoDeDezPorCento() {
 		Carrinho carrinho = carrinhoComTresLivrosDiferentes();
-		carrinho.calculaTotal();
 		assertEquals(Double.valueOf(21.60), carrinho.getTotal());
 	}
 	
 	@Test public void
 	quandoHouverTresLivrosDiferentes_e_umIgual_entao_aplicarDescontoDeDezPorCentoNosTres() {
 		Carrinho carrinho = carrinhoComTresLivrosDiferentesEUmIgual();
-		carrinho.calculaTotal();
 		assertEquals(Double.valueOf(29.60), carrinho.getTotal());
 	}
 	
 	@Test public void
 	quandoHouverQuatroLivrosDiferentes_entao_aplicarDescontoDeVintePorCento() {
 		Carrinho carrinho = carrinhoComQuatroLivrosDiferentes();
-		carrinho.calculaTotal();
 		assertEquals(Double.valueOf(25.60), carrinho.getTotal());
 	}
 	
 	@Test public void
 	quandoHouverCincoLivrosDiferentes_entao_aplicarDescontoDeVintePorCento() {
 		Carrinho carrinho = carrinhoComCincoLivrosDiferentes();
-		carrinho.calculaTotal();
 		assertEquals(Double.valueOf(30.00), carrinho.getTotal());
 	}
 	
 	@Test public void
 	quandoHouverCincoLivros_sendo_tresDiferentesEDoisDiferentes_entao_deveCalcularDescontoDeDezECincoPorCento() {
 		Carrinho carrinho = carrinhoComCincoLivros();
-		carrinho.calculaTotal();
 		assertEquals(Double.valueOf(36.80), carrinho.getTotal());
+	}
+	
+	@Test public void
+	buscaAMelhorCombinacaoParaUmaQuantidadeDiferenteDeLivros() {
+		Carrinho carrinho = carrinhoDiverso();
+		assertEquals(Double.valueOf(51.20), carrinho.getTotal());
+	}
+
+	public Carrinho carrinhoDiverso() {
+		Compra compra = new Compra(primeiroLivro(), 2);
+		Compra compraSegundoLivro = new Compra(segundoLivro(), 2);
+		Compra compraTerceiroLivro = new Compra(terceiroLivro(), 2);
+		Compra compraQuartoLivro = new Compra(quartoLivro(), 1);
+		Compra compraQuintoLivro = new Compra(quintoLivro(), 1);
+		List<Compra> compras = newArrayList(compra, compraSegundoLivro, compraTerceiroLivro, compraQuartoLivro, compraQuintoLivro);
+		Carrinho carrinho = new Carrinho();
+		carrinho.setCompras(compras);
+		return carrinho;
 	}
 	
 	private Carrinho carrinhoComCincoLivros() {
@@ -168,7 +178,5 @@ public class CarrinhoTest {
 	private Livro primeiroLivro() {
 		return new Livro(1, "Game of Thrones I");
 	}
-	
-	
 
 }

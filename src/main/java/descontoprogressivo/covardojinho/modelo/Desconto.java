@@ -24,10 +24,6 @@ public class Desconto {
 		return descontos;
 	}
 	
-	public void setDescontos(List<Livro> descontos) {
-		this.descontos = descontos;
-	}
-
 	public Desconto(List<Livro> descontos) {
 		this.descontos = descontos;
 	}

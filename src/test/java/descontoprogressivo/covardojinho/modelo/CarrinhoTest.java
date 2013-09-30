@@ -1,4 +1,4 @@
-package descontoprogressivo.covardojinho.desconto;
+package descontoprogressivo.covardojinho.modelo;
 
 import static com.google.common.collect.Lists.newArrayList;
 import static org.junit.Assert.assertEquals;

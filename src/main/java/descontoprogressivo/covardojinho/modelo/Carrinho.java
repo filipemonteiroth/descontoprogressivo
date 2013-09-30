@@ -9,10 +9,6 @@ public class Carrinho {
 	
 	private Double total;
 
-	public List<Compra> getCompras() {
-		return compras;
-	}
-
 	public void setCompras(List<Compra> compras) {
 		this.compras = compras;
 	}
@@ -20,10 +16,6 @@ public class Carrinho {
 	public Double getTotal() {
 		calculaTotal();
 		return total;
-	}
-
-	public void setTotal(Double total) {
-		this.total = total;
 	}
 
 	public void calculaTotal() {

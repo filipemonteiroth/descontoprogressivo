@@ -10,10 +10,6 @@ public class Compra {
 		return livro;
 	}
 
-	public void setLivro(Livro livro) {
-		this.livro = livro;
-	}
-
 	public Integer getQuantidade() {
 		return quantidade;
 	}

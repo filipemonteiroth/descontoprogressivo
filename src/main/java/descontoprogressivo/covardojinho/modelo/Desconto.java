@@ -5,24 +5,30 @@ import java.util.List;
 
 public class Desconto {
 	
-	private Double total;
-	
 	private List<Livro> descontos = new ArrayList<Livro>();
 
 	public Double getTotal() {
-		return total;
-	}
-
-	public void setTotal(Double total) {
-		this.total = total;
+		if (descontos.size() == 2) {
+			return 5.0;
+		} else if (descontos.size() == 3) {
+			return 10.0;
+		} else if (descontos.size() == 4) {
+			return 20.0;
+		} else if (descontos.size() == 5) {
+			return 25.0;
+		}
+		return 0.0;
 	}
 
 	public List<Livro> getDescontos() {
 		return descontos;
 	}
+	
+	public void setDescontos(List<Livro> descontos) {
+		this.descontos = descontos;
+	}
 
-	public Desconto(Double total, List<Livro> descontos) {
-		this.total = total;
+	public Desconto(List<Livro> descontos) {
 		this.descontos = descontos;
 	}
 	

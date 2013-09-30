@@ -30,20 +30,19 @@ public class Carrinho {
 	}
 
 	public double calculaTotalDaCompra() {
-		Desconto desconto = calculaDesconto();
-		Integer livrosComDesconto = desconto.getDescontos().size();
-		int totalDeLivrosComDesconto = livrosComDesconto * 8;
-		Double subTotal = (double) (totalDeLivrosComDesconto - (totalDeLivrosComDesconto * desconto.getTotal() / 100));
-		int livrosRestantes = calculaLivrosRestantes(livrosComDesconto);
+		Double subTotal = 0.0;
+		List<Desconto> descontos = calculaDesconto();
+		for (Desconto desconto : descontos) {
+			Integer livrosComDesconto = desconto.getDescontos().size();
+			int totalDeLivrosComDesconto = livrosComDesconto * 8;
+			subTotal = subTotal + (double) (totalDeLivrosComDesconto - (totalDeLivrosComDesconto * desconto.getTotal() / 100));
+		}
+		int livrosRestantes = calculaLivrosRestantes();
 		subTotal = subTotal + (livrosRestantes * 8);
 		return subTotal;
 	}
 
-	private int calculaLivrosRestantes(int totalDeLivrosComDesconto) {
-		return totalDeLivros() - totalDeLivrosComDesconto;
-	}
-
-	private Integer totalDeLivros() {
+	private int calculaLivrosRestantes() {
 		Integer total = 0;
 		for (Compra compra : compras) {
 			total += compra.getQuantidade();
@@ -51,33 +50,30 @@ public class Carrinho {
 		return total;
 	}
 
-	private Desconto calculaDesconto() {
-		List<Livro> livros = buscaLivrosDiferentes();
-		if (livros.size() == 2) {
-			Desconto desconto = new Desconto(5.0, livros);
-			return desconto;
-		}
-		Desconto desconto = new Desconto(0.0, livros);
-		return desconto;
-	}
-
-	private List<Livro> buscaLivrosDiferentes() {
-		List<Livro> livros = new ArrayList<Livro>();
-		for (Compra compra : compras) {
-			if (!encontrou(compra.getLivro(), livros)) {
-				livros.add(compra.getLivro());
+	private List<Desconto> calculaDesconto() {
+		List<Desconto> descontos = new ArrayList<Desconto>();
+		List<Compra> comprasAux = compras;
+		while (existirLivros(comprasAux)) {
+			List<Livro> livros = new ArrayList<Livro>();
+			for (Compra compra : comprasAux) {
+				if (compra.getQuantidade() > 0) {
+					livros.add(compra.getLivro());
+					compra.setQuantidade(compra.getQuantidade() - 1);
+				}
 			}
-		}
-		return livros;
+			Desconto desconto = new Desconto(livros);
+			descontos.add(desconto);	
+		}		
+		return descontos;
 	}
 
-	private boolean encontrou(Livro livro, List<Livro> livrosDiferentes) {
-		for (Livro livroDiferente : livrosDiferentes) {
-			if (livro.getId().equals(livroDiferente.getId())) {
+	private boolean existirLivros(List<Compra> comprasAux) {
+		for (Compra compra : comprasAux) {
+			if (compra.getQuantidade() > 0) {
 				return true;
-			}
+			}			
 		}
 		return false;
 	}
-	
+
 }

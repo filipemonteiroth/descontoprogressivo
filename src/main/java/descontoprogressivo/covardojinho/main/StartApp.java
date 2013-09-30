@@ -11,6 +11,24 @@ import descontoprogressivo.covardojinho.modelo.Livro;
 public class StartApp {
 
 	public static void main(String[] args) {
+		primeiroDesafio();
+		desafioPrincipal();
+	}
+
+	public static void primeiroDesafio() {
+		Compra compra = new Compra(primeiroLivro(), 1);
+		Compra compraSegundoLivro = new Compra(segundoLivro(), 1);
+		Compra compraTerceiroLivro = new Compra(terceiroLivro(), 2);
+		List<Compra> compras = newArrayList(compra, compraSegundoLivro, compraTerceiroLivro);
+		Carrinho carrinho = new Carrinho();
+		carrinho.setCompras(compras);
+		System.out.println("1 Copias do Livro 1");
+		System.out.println("1 Copias do Livro 2");
+		System.out.println("2 Copias do Livro 3");
+		System.out.println("Total das suas compras foi: " + carrinho.getTotal());
+	}
+
+	public static void desafioPrincipal() {
 		Compra compra = new Compra(primeiroLivro(), 2);
 		Compra compraSegundoLivro = new Compra(segundoLivro(), 2);
 		Compra compraTerceiroLivro = new Compra(terceiroLivro(), 2);
@@ -19,6 +37,11 @@ public class StartApp {
 		List<Compra> compras = newArrayList(compra, compraSegundoLivro, compraTerceiroLivro, compraQuartoLivro, compraQuintoLivro);
 		Carrinho carrinho = new Carrinho();
 		carrinho.setCompras(compras);
+		System.out.println("2 Copias do Livro 1");
+		System.out.println("2 Copias do Livro 2");
+		System.out.println("2 Copias do Livro 3");
+		System.out.println("1 Copia do Livro 4");
+		System.out.println("1 Copia do Livro 5");
 		System.out.println("Total das suas compras foi: " + carrinho.getTotal());
 	}
 	
